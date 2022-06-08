@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32104.313
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetPdfService", "NetPdfService\NetPdfService.csproj", "{520F9635-0F3C-42A9-BA39-260C87BA8FCB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{520F9635-0F3C-42A9-BA39-260C87BA8FCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{520F9635-0F3C-42A9-BA39-260C87BA8FCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{520F9635-0F3C-42A9-BA39-260C87BA8FCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{520F9635-0F3C-42A9-BA39-260C87BA8FCB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C92C55ED-0CBC-48A9-80E9-848CF6E86778}
+	EndGlobalSection
+EndGlobal
