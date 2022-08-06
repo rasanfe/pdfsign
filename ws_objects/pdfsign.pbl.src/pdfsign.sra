@@ -22,9 +22,9 @@ string themename = "Do Not Use Themes"
 boolean nativepdfvalid = false
 boolean nativepdfincludecustomfont = false
 string nativepdfappname = ""
-long richtextedittype = 2
-long richtexteditx64type = 3
-long richtexteditversion = 1
+long richtextedittype = 5
+long richtexteditx64type = 5
+long richtexteditversion = 3
 string richtexteditkey = ""
 string appicon = "icono.ico"
 string appruntimeversion = "22.0.0.1716"
@@ -62,8 +62,8 @@ ls_Path = space(1024)
 lul_handle = Handle(GetApplication())
 GetModuleFilenameW(lul_handle, ls_Path, 1024)
 
-if right(UPPER(ls_path), 9)="PB210.EXE" then
-	ls_path="C:\projecto pw2021\Blog\pdfsignV\pdfsign.exe"
+if right(UPPER(ls_path), 9)="PB220.EXE" then
+	ls_path="C:\projecto pw2022\Blog\Actualizado a 2022\pdfsign\pdfsign.exe"
 end if
 
 gs_dir=left(ls_path, len(ls_path) - 11)
