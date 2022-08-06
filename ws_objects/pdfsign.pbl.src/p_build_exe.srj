@@ -1,0 +1,19 @@
+﻿$PBExportHeader$p_build_exe.srj
+EXE:pdfsign.exe,,0,1,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 22.0.0.1716
+CMP:0,1,1,3,0,0,1
+COM:RSRSYSTEM
+DES:Appeon Power Builder 2019 Product File 64Bits
+CPY:RASANFE
+PRD:PdfSign
+PVS:2022.0.1716.2
+PVN:2022,0,1716,2
+FVS:2022.0.1716.2
+FVN:2022,0,1716,2
+MAN:0,asInvoker,0
+PBD:pdfsign.pbl,,1
+OBJ:C:\projecto pw2022\Blog\Actualizado a 2022\pdfsignV\pdfsign.pbl,pdfsign,a
+OBJ:C:\projecto pw2022\Blog\Actualizado a 2022\pdfsignV\pdfsign.pbl,nvo_firmadigital,u
+OBJ:C:\projecto pw2022\Blog\Actualizado a 2022\pdfsignV\pdfsign.pbl,nvo_pdfservice,u
+OBJ:C:\projecto pw2022\Blog\Actualizado a 2022\pdfsignV\pdfsign.pbl,w_main,w
+OBJ:C:\projecto pw2022\Blog\Actualizado a 2022\pdfsignV\pdfsign.pbl,gf_mensaje,f
+OBJ:C:\projecto pw2022\Blog\Actualizado a 2022\pdfsignV\pdfsign.pbl,nvo_fileservice,u
