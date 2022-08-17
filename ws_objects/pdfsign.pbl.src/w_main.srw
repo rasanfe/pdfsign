@@ -2,8 +2,6 @@
 forward
 global type w_main from window
 end type
-type st_3 from statictext within w_main
-end type
 type st_nombreyapellidos from statichyperlink within w_main
 end type
 type st_dni from statichyperlink within w_main
@@ -80,7 +78,6 @@ boolean minbox = true
 boolean maxbox = true
 string icon = "AppIcon!"
 boolean center = true
-st_3 st_3
 st_nombreyapellidos st_nombreyapellidos
 st_dni st_dni
 sle_nombreyapellidos sle_nombreyapellidos
@@ -150,7 +147,6 @@ ast_patform.text=ls_platform
 end subroutine
 
 on w_main.create
-this.st_3=create st_3
 this.st_nombreyapellidos=create st_nombreyapellidos
 this.st_dni=create st_dni
 this.sle_nombreyapellidos=create sle_nombreyapellidos
@@ -183,8 +179,7 @@ this.cb_1=create cb_1
 this.st_1=create st_1
 this.sle_firma=create sle_firma
 this.r_2=create r_2
-this.Control[]={this.st_3,&
-this.st_nombreyapellidos,&
+this.Control[]={this.st_nombreyapellidos,&
 this.st_dni,&
 this.sle_nombreyapellidos,&
 this.sle_dni,&
@@ -219,7 +214,6 @@ this.r_2}
 end on
 
 on w_main.destroy
-destroy(this.st_3)
 destroy(this.st_nombreyapellidos)
 destroy(this.st_dni)
 destroy(this.sle_nombreyapellidos)
@@ -295,24 +289,6 @@ SetProFileString(gs_ini, "INICIO", "dni", sle_dni.text)
 
 Destroy in_pdf
 end event
-
-type st_3 from statictext within w_main
-integer x = 375
-integer y = 292
-integer width = 640
-integer height = 64
-integer textsize = -10
-integer weight = 700
-fontcharset fontcharset = ansi!
-fontpitch fontpitch = variable!
-fontfamily fontfamily = swiss!
-string facename = "Tahoma"
-long textcolor = 255
-long backcolor = 553648127
-string text = "Rama de Prueba"
-long bordercolor = 255
-boolean focusrectangle = false
-end type
 
 type st_nombreyapellidos from statichyperlink within w_main
 integer x = 553
