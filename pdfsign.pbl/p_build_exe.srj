@@ -1,0 +1,20 @@
+﻿EXE:pdfsign.exe,,0,1,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.0.0.3683
+CMP:0,0,0,3,0,0,1
+COM:RSRSYSTEM
+DES:Appeon Power Builder 2025 Product File 64Bits
+CPY:Ramón San Félix Ramón
+PRD:PdfSign2025
+PVS:2025.1.3683.15
+PVN:2025,1,3683,15
+FVS:2025.1.3683.15
+FVN:2025,1,3683,15
+MAN:0,asInvoker,0
+PBD:pdfsign.pbl,,1
+PBD:dotnet.pbl,,0
+OBJ:c:\proyecto pw2025\blog\powerbuilder\pdfsign\dotnet.pbl,nvo_pdfservice,u
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pdfsign.pbl,n_runandwait,u
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pdfsign.pbl,w_main,w
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pdfsign.pbl,nvo_fileservice,u
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pdfsign.pbl,pdfsign,a
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pdfsign.pbl,nvo_firmadigital,u
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pdfsign.pbl,gf_mensaje,f
