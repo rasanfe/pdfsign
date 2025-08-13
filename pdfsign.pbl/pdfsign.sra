@@ -16,7 +16,7 @@ end variables
 global type pdfsign from application
 string appname = "pdfsign"
 string displayname = "PdfSign"
-string themepath = "C:\Program Files (x86)\Appeon\PowerBuilder 19.0\IDE\theme"
+string themepath = "C:\Program Files (x86)\Appeon\PowerBuilder 25.0\IDE\theme"
 string themename = "Do Not Use Themes"
 boolean nativepdfvalid = false
 boolean nativepdfincludecustomfont = false
@@ -26,7 +26,7 @@ long richtexteditx64type = 5
 long richtexteditversion = 3
 string richtexteditkey = ""
 string appicon = "icono.ico"
-string appruntimeversion = "25.0.0.3683"
+string appruntimeversion = "25.0.0.3711"
 boolean manualsession = false
 boolean unsupportedapierror = false
 boolean bignoreservercertificate = false
