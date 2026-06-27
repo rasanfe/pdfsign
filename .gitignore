@@ -1,1 +1,13 @@
+# Regenerables PowerBuilder
+/.pb/
+/build/
+*.pbd
+/pdfsign.exe
 /pdfsign.xml
+.pypbcontextlock
+# Salidas de prueba
+/3.pdf
+/4.pdf
+# Python caches
+__pycache__/
+*.pyc

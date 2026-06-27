@@ -51,6 +51,14 @@ type st_platform from statictext within w_main
 end type
 type cb_sign from commandbutton within w_main
 end type
+type st_metodo from statictext within w_main
+end type
+type rb_consola from radiobutton within w_main
+end type
+type rb_net from radiobutton within w_main
+end type
+type rb_python from radiobutton within w_main
+end type
 type sle_archivo from singlelineedit within w_main
 end type
 type st_2 from statictext within w_main
@@ -102,6 +110,10 @@ st_4 st_4
 st_myversion st_myversion
 st_platform st_platform
 cb_sign cb_sign
+st_metodo st_metodo
+rb_consola rb_consola
+rb_net rb_net
+rb_python rb_python
 sle_archivo sle_archivo
 st_2 st_2
 cb_2 cb_2
@@ -171,6 +183,10 @@ this.st_4=create st_4
 this.st_myversion=create st_myversion
 this.st_platform=create st_platform
 this.cb_sign=create cb_sign
+this.st_metodo=create st_metodo
+this.rb_consola=create rb_consola
+this.rb_net=create rb_net
+this.rb_python=create rb_python
 this.sle_archivo=create sle_archivo
 this.st_2=create st_2
 this.cb_2=create cb_2
@@ -203,6 +219,10 @@ this.st_4,&
 this.st_myversion,&
 this.st_platform,&
 this.cb_sign,&
+this.st_metodo,&
+this.rb_consola,&
+this.rb_net,&
+this.rb_python,&
 this.sle_archivo,&
 this.st_2,&
 this.cb_2,&
@@ -238,6 +258,10 @@ destroy(this.st_4)
 destroy(this.st_myversion)
 destroy(this.st_platform)
 destroy(this.cb_sign)
+destroy(this.st_metodo)
+destroy(this.rb_consola)
+destroy(this.rb_net)
+destroy(this.rb_python)
 destroy(this.sle_archivo)
 destroy(this.st_2)
 destroy(this.cb_2)
@@ -266,6 +290,24 @@ em_y2.text =trim(ProFileString(gs_ini, "INICIO", "y2", "125"))
 sle_nombreyapellidos.text =trim(ProFileString(gs_ini, "INICIO", "nombre", ""))
 sle_dni.text =trim(ProFileString(gs_ini, "INICIO", "dni", ""))
 
+//Metodo de firma elegido la ultima vez (consola por defecto)
+String ls_metodo
+ls_metodo = lower(trim(ProFileString(gs_ini, "INICIO", "metodo", "consola")))
+choose case ls_metodo
+	case "net"
+		rb_net.checked = true
+		rb_consola.checked = false
+		rb_python.checked = false
+	case "python"
+		rb_python.checked = true
+		rb_consola.checked = false
+		rb_net.checked = false
+	case else
+		rb_consola.checked = true
+		rb_net.checked = false
+		rb_python.checked = false
+end choose
+
 String ls_clave
 
 ls_clave = trim(ProFileString(gs_ini, "INICIO", "clave", ""))
@@ -285,6 +327,16 @@ SetProFileString(gs_ini, "INICIO", "x2", em_x2.text)
 SetProFileString(gs_ini, "INICIO", "y2", em_y2.text)
 SetProFileString(gs_ini, "INICIO", "nombre", sle_nombreyapellidos.text)
 SetProFileString(gs_ini, "INICIO", "dni", sle_dni.text)
+
+String ls_metodo
+if rb_net.checked then
+	ls_metodo = "net"
+elseif rb_python.checked then
+	ls_metodo = "python"
+else
+	ls_metodo = "consola"
+end if
+SetProFileString(gs_ini, "INICIO", "metodo", ls_metodo)
 
 Destroy in_pdf
 end event
@@ -778,16 +830,86 @@ ls_dni=sle_dni.text
 
 lb_visible=cbx_visible.checked
  
-//Para firmar Usando la app de Consola TestNetPdfService.exe 
-lb_result =  in_pdf.of_firmar_app(ls_file, ls_firma, ls_clave, ls_imagen, li_x1, li_y1, li_x2, li_y2, ls_nombre, ls_dni, lb_visible)
+//Despacho segun el metodo elegido en los radio buttons
+choose case true
+	case rb_net.checked
+		//Libreria NetPdfService.dll importada (dotnetobject nvo_pdfservice)
+		lb_result = in_pdf.of_firmar_net(ls_file, ls_firma, ls_clave, ls_imagen, li_x1, li_y1, li_x2, li_y2, ls_nombre, ls_dni, lb_visible)
+	case rb_python.checked
+		//Python (pyHanko) via PyPb, runtime embebido (el usuario no instala Python)
+		lb_result = in_pdf.of_firmar_python(ls_file, ls_firma, ls_clave, ls_imagen, li_x1, li_y1, li_x2, li_y2, ls_nombre, ls_dni, lb_visible)
+	case else
+		//Consola TestNetPdfService.exe (por defecto)
+		lb_result = in_pdf.of_firmar_app(ls_file, ls_firma, ls_clave, ls_imagen, li_x1, li_y1, li_x2, li_y2, ls_nombre, ls_dni, lb_visible)
+end choose
 
-//Para firmar usando la libreria NetPdfService.dll importada en nvo_pdfservice
-//lb_result =  in_pdf.of_firmar_net(ls_file, ls_firma, ls_clave, ls_imagen, li_x1, li_y1, li_x2, li_y2, ls_nombre, ls_dni, lb_visible)
-	
 if lb_result=true then
-	Messagebox("Exito","Archivos PDF Firmado")
-end if	
+	Messagebox("Éxito","Archivo PDF firmado")
+end if
 end event
+
+type st_metodo from statictext within w_main
+integer x = 64
+integer y = 300
+integer width = 256
+integer height = 56
+integer textsize = -8
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Tahoma"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Firmar con:"
+boolean focusrectangle = false
+end type
+
+type rb_consola from radiobutton within w_main
+integer x = 320
+integer y = 292
+integer width = 380
+integer height = 72
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Consola (.EXE)"
+boolean checked = true
+end type
+
+type rb_net from radiobutton within w_main
+integer x = 720
+integer y = 292
+integer width = 380
+integer height = 72
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = ".NET librería"
+end type
+
+type rb_python from radiobutton within w_main
+integer x = 1120
+integer y = 292
+integer width = 440
+integer height = 72
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Python (pyHanko)"
+end type
 
 type sle_archivo from singlelineedit within w_main
 integer x = 361

@@ -1,0 +1,105 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Appeon.Util/1.0.0": {
+        "dependencies": {
+          "Appeon.PyPb": "1.0.0"
+        },
+        "runtime": {
+          "Appeon.Util.dll": {}
+        }
+      },
+      "Python.Deployment/2.0.5": {
+        "runtime": {
+          "lib/netstandard2.0/Python.Deployment.dll": {
+            "assemblyVersion": "1.5.0.0",
+            "fileVersion": "1.5.0.0"
+          }
+        }
+      },
+      "Python.Included/3.13.0": {
+        "dependencies": {
+          "Python.Deployment": "2.0.5",
+          "pythonnet": "3.0.5"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Python.Included.dll": {
+            "assemblyVersion": "3.10.0.0",
+            "fileVersion": "3.10.0.0"
+          }
+        }
+      },
+      "pythonnet/3.0.5": {
+        "runtime": {
+          "lib/netstandard2.0/Python.Runtime.dll": {
+            "assemblyVersion": "3.0.5.0",
+            "fileVersion": "3.0.5.0"
+          }
+        }
+      },
+      "Appeon.PyPb/1.0.0": {
+        "dependencies": {
+          "Python.Included": "3.13.0",
+          "pythonnet": "3.0.5"
+        },
+        "runtime": {
+          "Appeon.PyPb.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "pbdotnetinvoker/1.0.9341.10825": {
+        "runtime": {
+          "pbdotnetinvoker.dll": {
+            "assemblyVersion": "1.0.9341.10825",
+            "fileVersion": "25.0.0.3711"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Appeon.Util/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Python.Deployment/2.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-U+hZ6L5tgPjX9bA/+K2rVQ94MNWGld+HIH78ULZ5ogfwVNvesaIEXhvKPLA6O6YuQF406Uw3WBLTCRlCpMC2QQ==",
+      "path": "python.deployment/2.0.5",
+      "hashPath": "python.deployment.2.0.5.nupkg.sha512"
+    },
+    "Python.Included/3.13.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-B2MGu6EY4vD3a+bH6k06AUhnLrpc6/DYzJIiJenUBw9AkSgVyY+UyD+3KNgCqj76/bKQoTIhI/49wMJygI3IgA==",
+      "path": "python.included/3.13.0",
+      "hashPath": "python.included.3.13.0.nupkg.sha512"
+    },
+    "pythonnet/3.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-20UVeB1uDpvCHZi8yNv7VCSUKVRRaxPZWFYhkO+BjfBB9GgOh2vEeucy3U7zTY8xEVCHf2XHpRNfAU/3quxXZw==",
+      "path": "pythonnet/3.0.5",
+      "hashPath": "pythonnet.3.0.5.nupkg.sha512"
+    },
+    "Appeon.PyPb/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "pbdotnetinvoker/1.0.9341.10825": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

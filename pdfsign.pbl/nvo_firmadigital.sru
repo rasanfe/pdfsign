@@ -16,6 +16,7 @@ public function boolean of_controles_previos (string as_ruta, string as_firma, s
 public function boolean of_firmar_net (string as_ruta, string as_firma, string as_clave, string as_imagen, integer ai_x1, integer ai_y1, integer ai_x2, integer ai_y2, string as_nombre, string as_dni, boolean ab_visible)
 public function boolean of_firmar_app (string as_ruta, string as_firma, string as_clave, string as_imagen, integer ai_x1, integer ai_y1, integer ai_x2, integer ai_y2, string as_nombre, string as_dni, boolean ab_visible)
 public function boolean of_control_dependencias (string as_dll)
+public function boolean of_firmar_python (string as_ruta, string as_firma, string as_clave, string as_imagen, integer ai_x1, integer ai_y1, integer ai_x2, integer ai_y2, string as_nombre, string as_dni, boolean ab_visible)
 end prototypes
 
 public function boolean of_controles_previos (string as_ruta, string as_firma, string as_clave);if as_ruta = "" then
@@ -180,6 +181,62 @@ else
 end if	
 	
 Destroy lo_File
+RETURN lb_Result
+end function
+
+public function boolean of_firmar_python (string as_ruta, string as_firma, string as_clave, string as_imagen, integer ai_x1, integer ai_y1, integer ai_x2, integer ai_y2, string as_nombre, string as_dni, boolean ab_visible);//Funcion para firmar usando Python (pyHanko) via PyPb, con runtime Python embebido.
+//El usuario final NO necesita instalar Python: viaja en python.runtime\ junto al EXE.
+string ls_signed, ls_reason, ls_location, ls_contact, ls_error, ls_file, ls_result, ls_pydll
+Boolean lb_Result = True
+nvo_fileservice lo_file
+n_cst_pyton_pdfsign lo_py
+
+ls_pydll = gs_dir + "python.runtime\python313.dll"
+
+// Runtime Python embebido presente?
+if not FileExists(ls_pydll) then
+	gf_mensaje ("Atención", "¡ Falta el runtime Python embebido: " + ls_pydll + " !")
+	return false
+end if
+
+if not of_controles_previos(as_ruta, as_firma, as_clave) then return false
+
+lo_file = CREATE nvo_FileService
+
+ls_file = lo_File.of_GetFileName(as_ruta)
+ls_signed = lo_File.of_GetDirectoryName(as_ruta) + "\" + lo_File.of_GetFileNameWithoutExtension(ls_file) + "_sign.pdf"
+
+ls_reason = "proof of authenticity"
+ls_location = ""
+ls_contact = ""
+
+lo_py = CREATE n_cst_pyton_pdfsign
+
+if lo_py.of_init(ls_pydll) <> 0 then
+	gf_mensaje ("Atención", "¡ Error iniciando Python !" + "~r~n~r~n" + lo_py.of_lasterror())
+	DESTROY lo_py
+	DESTROY lo_file
+	return false
+end if
+
+ls_result = lo_py.of_firmar(as_ruta, ls_signed, as_firma, as_clave, ls_reason, ls_location, ls_contact, as_imagen, ai_x1, ai_y1, ai_x2, ai_y2, as_nombre, as_dni, ab_visible)
+
+if pos(ls_result, "Done!") > 0 then
+	ls_error = ""
+else
+	ls_error = ls_result
+end if
+
+if ls_error = "" then
+	FileDelete(as_ruta)
+	lb_Result = lo_File.of_filerename(ls_signed, as_ruta)
+else
+	gf_mensaje ("Atención", "¡ Error firmando " + ls_file + " !" + "~n~r" + "~n~r" + "pyHanko: " + ls_error)
+	lb_Result = FALSE
+end if
+
+DESTROY lo_py
+DESTROY lo_file
 RETURN lb_Result
 end function
 

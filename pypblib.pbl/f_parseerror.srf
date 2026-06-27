@@ -1,0 +1,36 @@
+﻿global type f_parseerror from function_object
+end type
+
+forward prototypes
+global function str_pypberror f_parseerror (string as_errorstring)
+end prototypes
+
+global function str_pypberror f_parseerror (string as_errorstring);str_pypberror lstr_err
+string ls_error
+JsonParser lnv_parser
+int li_root
+
+If IsNull(as_errorstring) or as_errorstring = "" Then
+	Return lstr_err
+End If
+
+lnv_parser = Create JsonParser
+
+ls_error = lnv_parser.LoadString(as_errorstring)
+
+If Len(ls_error) > 0 Then
+	lstr_err.s_message = "Could not parse error: <<" + ls_error + ">>. Original string was: " + ls_error
+	Return lstr_err
+End If
+
+li_root = lnv_parser.GetRootitem( )
+
+lstr_err.s_message = lnv_parser.GetItemString(li_root, "Message")
+lstr_err.s_stack = lnv_parser.GetItemString(li_root,"Stack")
+lstr_err.s_pypbfunction  = lnv_parser.GetItemString(li_root,"PyPbFunction")
+lstr_err.s_arguments = lnv_parser.GetItemString(li_root, "Arguments")
+
+
+Return lstr_err
+end function
+

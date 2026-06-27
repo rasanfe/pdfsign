@@ -1,0 +1,16 @@
+﻿global type f_wrapobject from function_object
+end type
+
+forward prototypes
+global function n_cst_pypbobject f_wrapobject (ref dotnetobject adn_object)
+end prototypes
+
+global function n_cst_pypbobject f_wrapobject (ref dotnetobject adn_object);n_cst_pypbobject ldn_res 
+ldn_res = Create n_cst_pypbobject
+
+ldn_res.idn_host = adn_object
+SetNull(adn_object)
+
+return ldn_res
+end function
+

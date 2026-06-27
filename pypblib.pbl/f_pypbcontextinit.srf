@@ -1,0 +1,66 @@
+﻿global type f_pypbcontextinit from function_object
+end type
+
+forward prototypes
+global function n_cst_pypbcontext f_pypbcontextinit (string as_pythonpath, ref string as_error)
+end prototypes
+
+global function n_cst_pypbcontext f_pypbcontextinit (string as_pythonpath, ref string as_error);n_cst_pypbcontextwrapper lnv_assembly
+n_cst_pypbcontext lnv_wrapper
+dotnetobject ldn_pypbcontext
+Int res
+String emptyArray[]
+boolean lb_assemblyinit
+
+SetNull(lnv_wrapper)
+SetNull(ldn_pypbcontext)
+
+lnv_assembly = Create n_cst_pypbcontextwrapper
+
+SetNull(as_error)
+
+Try
+	If Not lnv_assembly.of_CreateOndemand( ) Then
+		as_error = "Could not create instance of .NET Assembly: " + lnv_assembly.is_errortext
+		Return lnv_wrapper
+	End If
+	
+	lb_assemblyinit = true
+	
+	If Not lnv_assembly.of_getfilelock( ) Then 
+		as_error = "Could not acquire lock."
+		Return lnv_wrapper
+	End If
+	
+	If lnv_assembly.IsInitialized() Then
+		ldn_pypbcontext = lnv_assembly.CurrentInstance()
+		as_error = "reusing"
+	Else
+		If Not IsNull(as_pythonpath) Then
+			ldn_pypbcontext = lnv_assembly.of_Init(as_pythonpath).idn_host
+		Else
+			ldn_pypbcontext = lnv_assembly.of_InitWithLocalRuntime(emptyArray).idn_host
+		End If
+	End If	
+	
+	If res = 0 Then
+		lnv_wrapper = Create n_cst_pypbcontext
+		lnv_wrapper.idn_host = ldn_pypbcontext
+	End If
+Catch (OLERuntimeError olee)
+	If lb_assemblyinit Then
+		lnv_assembly.of_releasefilelock( )
+	End If
+	as_error = "Error initializing Python Context: " + olee.description
+Catch (Exception e)
+	as_error = "Unknown error: " + e.GetMessage()
+	
+	If lb_assemblyinit Then
+		lnv_assembly.of_releasefilelock( )
+	End If
+	
+End Try
+
+Return lnv_wrapper
+end function
+

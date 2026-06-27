@@ -1,0 +1,7 @@
+﻿global type str_pypberror from structure
+	string		s_stack
+	string		s_message
+	string		s_pypbfunction
+	string		s_arguments
+end type
+

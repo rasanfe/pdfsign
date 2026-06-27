@@ -1,0 +1,22 @@
+﻿global type f_locksession from function_object
+end type
+
+forward prototypes
+global function boolean f_locksession ()
+end prototypes
+
+global function boolean f_locksession ();n_cst_pypbcontextwrapper lnv
+
+lnv = Create n_cst_pypbcontextwrapper
+
+Try
+	lnv.of_createondemand()
+	
+	Return lnv.of_GetFileLock()
+Catch (Throwable t)
+	Return False
+End Try
+
+Return True 
+end function
+

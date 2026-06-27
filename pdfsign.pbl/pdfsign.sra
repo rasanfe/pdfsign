@@ -26,7 +26,7 @@ long richtexteditx64type = 5
 long richtexteditversion = 3
 string richtexteditkey = ""
 string appicon = "icono.ico"
-string appruntimeversion = "25.0.0.3711"
+string appruntimeversion = "25.1.0.6430"
 boolean manualsession = false
 boolean unsupportedapierror = false
 boolean bignoreservercertificate = false
@@ -59,6 +59,15 @@ end on
 event open;gs_dir= GetCurrentDirectory() +"\"
 
 gs_ini=gs_dir+"pdfsign.ini"
+
+// Pre-cargar PyPb al arranque: su runtime .NET debe inicializarse ANTES que el
+// dotnetobject de iText (NetPdfService). PowerBuilder carga el runtime .NET una
+// sola vez por proceso; si iText va primero, PyPb puede fallar al cargar su
+// assembly. El contexto de Python es global y persiste tras el DESTROY.
+n_cst_pyton lnv_pyinit
+lnv_pyinit = CREATE n_cst_pyton
+lnv_pyinit.of_init(gs_dir + "python.runtime\python313.dll")
+DESTROY lnv_pyinit
 
 Open(w_main)
 end event
