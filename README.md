@@ -1,21 +1,54 @@
-# pdfsign — Firma digital de PDF en PowerBuilder
+# pdfsign — Firma digital de PDF en PowerBuilder 🔏
+
+![PowerBuilder](https://img.shields.io/badge/PowerBuilder-2025-FF6C2C?style=flat-square)
+![.NET](https://img.shields.io/badge/.NET-10-512BD4?style=flat-square&logo=dotnet&logoColor=white)
+![iText7](https://img.shields.io/badge/iText7-PAdES-1F6FEB?style=flat-square)
+![Blog](https://img.shields.io/badge/blog-rsrsystem-FF5722?style=flat-square&logo=blogger&logoColor=white)
 
 Ejemplo de **firma digital de PDF** (visible e invisible) con certificado `.pfx` desde
-**PowerBuilder 2025**, con **tres motores de firma** que el usuario elige con unos radio buttons:
+**PowerBuilder 2025**, con **tres motores de firma** que el usuario elige con unos radio buttons.
+
+---
+
+## 📋 ¿Qué es esto?
+
+Una app PowerBuilder que firma un PDF de tres maneras distintas, mismo botón **"Firmar PDF"**:
+según el radio marcado, despacha a uno u otro motor.
 
 | Método | Motor | Cómo firma | Estado |
 |--------|-------|-----------|--------|
-| **Consola (.EXE)** | iText7 (.NET 8) | Lanza `TestNetPdfService.exe` y captura su salida | ✅ |
-| **.NET librería** | iText7 (.NET 8) | Carga `NetPdfService.dll` como `dotnetobject` (en proceso) | ✅ (ver *fix* abajo) |
+| **Consola (.EXE)** | iText7 (.NET 10) | Lanza `TestNetPdfService.exe` y captura su salida | ✅ |
+| **.NET librería** | iText7 (.NET 10) | Carga `NetPdfService.dll` como `dotnetobject` (en proceso) | ✅ (ver *fix* abajo) |
 | **Python (pyHanko)** | pyHanko (PAdES) | Llama a un script Python vía **PyPb**, con runtime **embebido** | ✅ |
+
+El método **.NET librería** es el que nos interesa aquí: PowerBuilder carga la DLL `NetPdfService.dll`
+**en su propio proceso** como un `dotnetobject` (el proxy `nvo_pdfservice` del .NET DLL Importer) y
+llama a sus métodos como si fueran nativos. Nada de lanzar `.exe` externos: iText7 corre dentro de PB.
 
 > El método elegido se recuerda entre sesiones en `pdfsign.ini` (`metodo=consola|net|python`).
 > Por defecto: **Consola**.
 
-Mismo botón **"Firmar PDF"**: según el radio marcado, despacha a uno u otro motor.
-
 Los **tres motores producen firma PAdES** (eIDAS) con **sello de tiempo (TSA)** y, cuando hay
 conexión, **LTV** (validación a largo plazo). Ver [«Firma legal»](#firma-legal--pades--sello-de-tiempo-tsa--ltv) abajo.
+
+---
+
+## 🔗 Motor .NET
+
+La librería que firma en los métodos iText (consola y en proceso) es **`NetPdfService`**, una
+biblioteca .NET 10 construida sobre **itext7** que produce firma **PAdES** (visible/invisible) con
+sello de tiempo y LTV. PowerBuilder la consume como `dotnetobject` a través del proxy
+`nvo_pdfservice` (en `dotnet.pbl`).
+
+- **Repo .NET:** <https://github.com/rasanfe/NetPdfService>
+- **Código fuente** (Visual Studio, .NET 10 + iText7): `Blog\Net10\NetPdfService\`
+- **DLL desplegada:** `pdfsign\DotNet\NetPdfService\` (junto a `NetPdfService.dll`,
+  `TestNetPdfService.exe` y `demo.crl`).
+
+> **Dato didáctico — el fix del `BaseDirectory` vacío:** ver el apartado
+> [🔑 El "misterio" del modo librería iText](#-el-misterio-del-modo-librería-itext-resuelto). Es la
+> joya de este ejemplo: por qué la misma DLL funciona en consola pero peta dentro de PowerBuilder, y
+> cómo lo arregla un **constructor estático** en `NetPdfService`.
 
 ---
 
@@ -135,27 +168,27 @@ Se ejecuta al instanciar `PdfService` (al `CREATE nvo_pdfservice`), antes de `Fi
 
 ---
 
-## Requisitos
+## 🛠️ Requisitos
 
 - **PowerBuilder 2025** (con PyPb para el método Python).
-- **.NET 8.0** (para los motores iText).
+- **.NET 10** (para los motores iText / `NetPdfService`).
 - Python **no** se instala: viaja embebido en `python.runtime/`.
 
-## Cómo ejecutarlo
+## ▶️ Cómo probarlo
 
 1. Abre el *workspace* en el IDE de PowerBuilder.
 2. Asegúrate de que `pdfsign.pbl`, `dotnet.pbl` y `pypblib.pbl` están en la *library list*.
 3. Compila y ejecuta.
 4. Elige PDF, certificado y clave; marca/desmarca **Visible**; elige el método y pulsa **Firmar PDF**.
 
-## Estructura
+### Estructura
 
 ```
 pdfsign/
 ├── pdfsign.pbl/            # App, ventana, objetos de firma (incl. n_cst_pyton*)
 ├── dotnet.pbl/             # Proxy dotnetobject de iText (nvo_pdfservice)
 ├── pypblib.pbl/            # Puente PyPb
-├── DotNet/NetPdfService/   # iText7 8.0.5 + NetPdfService.dll + TestNetPdfService.exe + demo.crl
+├── DotNet/NetPdfService/   # iText7 + NetPdfService.dll + TestNetPdfService.exe + demo.crl
 ├── python.runtime/         # Python embeddable + pyHanko + Pillow + sign_pdf.py + DejaVuSans.ttf + trust/
 ├── bin.pypb.appeon/        # Assemblies .NET de PyPb
 ├── firma.pfx / firma.jpg   # Certificado autofirmado (demo básica) e imagen de firma
@@ -165,14 +198,15 @@ pdfsign/
 └── pdfsign.ini             # Preferencias (rutas, coordenadas, método)
 ```
 
-## Proyecto .NET (iText)
+---
 
-Las fuentes de `NetPdfService` (Visual Studio, .NET 8 + iText7) están en:
+## 🔗 Repo PowerBuilder
 
-- Local: `Blog/Net8/NetPdfService/`
-- GitHub: https://github.com/rasanfe/NetPdfService
+- **PowerBuilder (modo solución):** <https://github.com/rasanfe/pdfsign>
+- **Motor .NET (NetPdfService):** <https://github.com/rasanfe/NetPdfService>
 
 ---
 
-Para estar al tanto de lo que publico puedes seguir mi blog:
-<https://rsrsystem.blogspot.com/>
+> ¡Nos vemos en el próximo artículo! Y recuerda: en PowerBuilder, los límites solo están en nuestra imaginación. 🚀
+
+📨 **Blog:** <https://rsrsystem.blogspot.com/>

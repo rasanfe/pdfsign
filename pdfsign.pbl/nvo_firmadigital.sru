@@ -243,7 +243,8 @@ end function
 public function boolean of_control_dependencias (string as_dll);String ls_archivos[]
 Int li_idx, li_totalArchivos
 
-ls_archivos[]={"BouncyCastle.Crypto.dll", "itext.barcodes.dll", "itext.commons.dll", "itext.forms.dll", "itext.io.dll", "itext.kernel.dll", "itext.layout.dll", "itext.pdfa.dll", "itext.sign.dll", "itext.styledxmlparser.dll", "itext.svg.dll", "Microsoft.DotNet.PlatformAbstractions.dll", "Microsoft.Extensions.DependencyInjection.Abstractions.dll", "Microsoft.Extensions.DependencyInjection.dll", "Microsoft.Extensions.DependencyModel.dll", "Microsoft.Extensions.Logging.Abstractions.dll", "Microsoft.Extensions.Logging.dll", "Microsoft.Extensions.Options.dll", "Microsoft.Extensions.Primitives.dll", "Newtonsoft.Json.dll", as_dll }
+//.NET 10 / iText 9.6.0 - DLLs de runtime segun NetPdfService.deps.json
+ls_archivos[]={"BouncyCastle.Cryptography.dll", "itext.barcodes.dll", "itext.bouncy-castle-adapter.dll", "itext.bouncy-castle-connector.dll", "itext.commons.dll", "itext.forms.dll", "itext.io.dll", "itext.kernel.dll", "itext.layout.dll", "itext.pdfa.dll", "itext.pdfua.dll", "itext.sign.dll", "itext.styledxmlparser.dll", "itext.svg.dll", "Microsoft.DotNet.PlatformAbstractions.dll", "Microsoft.Extensions.DependencyInjection.Abstractions.dll", "Microsoft.Extensions.DependencyInjection.dll", "Microsoft.Extensions.DependencyModel.dll", "Microsoft.Extensions.Logging.Abstractions.dll", "Microsoft.Extensions.Logging.dll", "Microsoft.Extensions.Options.dll", "Microsoft.Extensions.Primitives.dll", "System.Security.Cryptography.Pkcs.dll", "System.Security.Cryptography.Xml.dll", as_dll }
 
 li_totalArchivos = UpperBound(ls_archivos[])
 

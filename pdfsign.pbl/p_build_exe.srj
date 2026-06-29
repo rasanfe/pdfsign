@@ -1,20 +1,35 @@
-﻿EXE:pdfsign.exe,,0,1,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.0.0.3711
+﻿EXE:pdfsign.exe,,0,1,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.1.0.6430
+EXT:0
 CMP:0,0,0,3,0,0,1
 COM:RSRSYSTEM
 DES:Appeon Power Builder 2025 Product File 64Bits
 CPY:Ramón San Félix Ramón
 PRD:PdfSign2025
-PVS:2025.1.3711.16
-PVN:2025,1,3711,16
-FVS:2025.1.3711.16
-FVN:2025,1,3711,16
-MAN:0,asInvoker,0
+PVS:2025.2.6430.18
+PVN:2025,2,6430,18
+FVS:2025.2.6430.18
+FVN:2025,2,6430,18
+MAN:0,asInvoker,0,0,0,0,0,0,,0,0,,0,,,,SHA256,http://timestamp.digicert.com,
 PBD:pdfsign.pbl,,1
-PBD:dotnet.pbl,,0
-OBJ:c:\proyecto pw2025\blog\powerbuilder\pdfsign\dotnet.pbl,nvo_pdfservice,u
+PBD:dotnet.pbl,,1
+PBD:pypblib.pbl,,1
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\dotnet.pbl,nvo_pdfservice,u
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pdfsign.pbl,n_cst_pyton_pdfsign,u
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pypblib.pbl,n_cst_pypbcontext,u
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pypblib.pbl,f_pypbcontextinit,f
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pypblib.pbl,n_cst_pypbmodule,u
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pypblib.pbl,n_cst_pypbentity,u
 OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pdfsign.pbl,n_runandwait,u
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pypblib.pbl,str_pypberror,s
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pdfsign.pbl,n_cst_pyton,u
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pypblib.pbl,n_cst_invocationrequest,u
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pypblib.pbl,f_parseerror,f
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pypblib.pbl,n_cst_pypbobject,u
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pypblib.pbl,f_wrapobject,f
 OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pdfsign.pbl,w_main,w
 OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pdfsign.pbl,nvo_fileservice,u
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pypblib.pbl,n_cst_pypbcontextwrapper,u
 OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pdfsign.pbl,pdfsign,a
 OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pdfsign.pbl,nvo_firmadigital,u
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pypblib.pbl,n_cst_pypbruntimeerror,u
 OBJ:C:\proyecto pw2025\Blog\PowerBuilder\pdfsign\pdfsign.pbl,gf_mensaje,f

@@ -868,7 +868,7 @@ end type
 type rb_consola from radiobutton within w_main
 integer x = 320
 integer y = 292
-integer width = 380
+integer width = 453
 integer height = 72
 integer textsize = -8
 integer weight = 400
@@ -882,9 +882,9 @@ boolean checked = true
 end type
 
 type rb_net from radiobutton within w_main
-integer x = 720
+integer x = 823
 integer y = 292
-integer width = 380
+integer width = 379
 integer height = 72
 integer textsize = -8
 integer weight = 400
@@ -897,9 +897,9 @@ string text = ".NET librería"
 end type
 
 type rb_python from radiobutton within w_main
-integer x = 1120
+integer x = 1221
 integer y = 292
-integer width = 440
+integer width = 530
 integer height = 72
 integer textsize = -8
 integer weight = 400
