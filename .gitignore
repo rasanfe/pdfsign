@@ -10,3 +10,6 @@
 # Python caches
 __pycache__/
 *.pyc
+
+# Regenerable (no versionar)
+*.pra
