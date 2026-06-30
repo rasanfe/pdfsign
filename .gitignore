@@ -3,7 +3,6 @@
 /build/
 *.pbd
 /pdfsign.exe
-/pdfsign.xml
 .pypbcontextlock
 # Salidas de prueba
 /3.pdf
